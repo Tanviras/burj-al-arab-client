@@ -30,6 +30,20 @@ newDates.checkOut=date;
 setSelectedDate(newDates);
 };
 
+const handleBooking=()=>{
+    const newBooking={...loggedInUser, ...selectedDate};
+    fetch('http://localhost:5000/addBooking',{
+      method :'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(newBooking)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);//first check 
+    })
+}
+
+
     return (
         <div style={{textAlign: 'center'}}>
             <h1>Hello, {loggedInUser.name}!Let's book a {bedType} Room.</h1>
@@ -63,7 +77,7 @@ setSelectedDate(newDates);
         />
         
       </Grid>
-      <Button variant="contained" color="primary">
+      <Button onClick={handleBooking} variant="contained" color="primary">
       Book Now
       </Button>
     </MuiPickersUtilsProvider>

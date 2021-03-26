@@ -8,52 +8,33 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
-import Bookings from '../Bookings/Bookings';
 
 const Book = () => {
     const {bedType} = useParams();
     const [loggedInUser,setLoggedInUser]=useContext(UserContext);
 
     const [selectedDate, setSelectedDate] = useState({
-                                                     checkIn:new Date(),
-                                                     checkOut:new Date()
-    });
+        checkIn:new Date(),
+        checkOut:new Date()
+});
 
-    const handleCheckInDate = (date) => {
-        const newDates={...selectedDate};
-        newDates.checkIn=date;
-        setSelectedDate(newDates);
-    };
- 
-    const handleCheckOutDate = (date) => {
-        const newDates={...selectedDate};
-        newDates.checkOut=date;
-        setSelectedDate(newDates);
-    };
+const handleCheckInDate = (date) => {
+const newDates={...selectedDate};
+newDates.checkIn=date;
+setSelectedDate(newDates);
+};
 
-    
-    const handleBooking = () =>{//connection with backend
-      const newBooking={...loggedInUser, ...selectedDate};
-    fetch('http://localhost:5000/addBooking',{
-      method :'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(newBooking)
-    })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data);
-    })
-    }
-
-    
-    
-
+const handleCheckOutDate = (date) => {
+const newDates={...selectedDate};
+newDates.checkOut=date;
+setSelectedDate(newDates);
+};
 
     return (
         <div style={{textAlign: 'center'}}>
-            <h1>Hello,{loggedInUser.name}! Let's book a {bedType} Room.</h1>
+            <h1>Hello, {loggedInUser.name}!Let's book a {bedType} Room.</h1>
             <p>Want a <Link to="/home">different room?</Link> </p>
-
+        
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
         <KeyboardDatePicker
@@ -82,13 +63,11 @@ const Book = () => {
         />
         
       </Grid>
-      <Button onClick={handleBooking} variant="contained" color="primary">
+      <Button variant="contained" color="primary">
       Book Now
       </Button>
     </MuiPickersUtilsProvider>
-    <Bookings></Bookings>
-    
-        </div> 
+        </div>
     );
 };
 

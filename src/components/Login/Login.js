@@ -6,8 +6,6 @@ import {UserContext} from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 
 
-
-
 const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const history = useHistory();
